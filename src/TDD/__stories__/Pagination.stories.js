@@ -10,7 +10,7 @@ export default {
 
 // Example prop values
 const props = {
-  label: '11 - 20 of 300',
+  label: '11 - 20 of 300 Properties',
   previousUrl: 'prev',
   nextUrl: 'next',
 }
