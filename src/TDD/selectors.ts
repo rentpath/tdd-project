@@ -45,6 +45,9 @@ export const getPathname = (state: State): string => (state?.pathname || '/')
  * to use for the pagination component.
  * - If there are zero search results return empty string (note this will cause
  *   the pagination component to not render at all)
+ * - If there is only one page of results, return "n Properties"
+ * - Otherwise return which items are currently shown, plus the total, like
+ *   "11 - 30 of 300 Properties"
  * - Does not do any checking for invalid data, like if the page number would be
  *   greater than the total number of items. In that case you will get an
  *   invalid label. */
@@ -53,6 +56,10 @@ export const getPaginationLabel = (state: State): string => {
   const page = getPage(state)
 
   if (total < 1) { return '' }
+
+  if (total <= PROPERTIES_PER_PAGE) {
+    return `${total} Properties`
+  }
 
   const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
   const end = begin + PROPERTIES_PER_PAGE - 1

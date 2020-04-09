@@ -13,7 +13,7 @@ export default {
 
 // Example prop values
 const props = {
-  label: '11 - 20 of 300 Properties',
+  label: '31 - 60 of 300 Properties',
   previousUrl: '/search',
   nextUrl: '/search?page=3',
 }
