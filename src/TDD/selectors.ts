@@ -7,6 +7,9 @@
  * write utility functions to help with calculating various things.
  */
 
+/** Number of properties to show on each page of results */
+export const PROPERTIES_PER_PAGE = 30
+
 /** For the purposes of this training exercise, we will assume a very simple
  * application state. */
 interface State {
@@ -25,9 +28,6 @@ interface State {
    */
   pathname: string,
 }
-
-/** Number of properties to show on each page of results */
-export const PROPERTIES_PER_PAGE = 30
 
 /** Selector to get the total number of search results */
 export const getTotal = (state: State): number => (state?.total || 0)
@@ -72,8 +72,15 @@ export const getPaginationLabel = (state: State): string => {
 export const getPaginationNextUrl = (state: State): string => {
   const total = getTotal(state)
   const page = getPage(state)
+  const pathname = getPathname(state)
 
-  return ''
+  const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
+  const end = begin + PROPERTIES_PER_PAGE - 1
+
+  // On last page there is no next url
+  if (end >= total) { return '' }
+
+  return `${pathname}?page=${page + 1}`
 }
 
 /**
@@ -88,8 +95,15 @@ export const getPaginationNextUrl = (state: State): string => {
  * Page 2: "/search?page=2"
  */
 export const getPaginationPreviousUrl = (state: State): string => {
-  const total = getTotal(state)
   const page = getPage(state)
+  const pathname = getPathname(state)
 
-  return ''
+  // If currently on the first page, there is no previous page
+  if (page === 1) { return '' }
+
+  // If currently on page two, then page one will have no "?page=1" parameter
+  if (page === 2) { return pathname }
+
+  // Otherwise subtract one from the page and add "?page=n" to the pathname
+  return `${pathname}?page=${page - 1}`
 }
