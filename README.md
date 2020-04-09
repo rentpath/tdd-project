@@ -1,6 +1,9 @@
 # RentPath Test Driven Development Project
 
 This project is intended to be used as an exercise for RentPath TDD training.
+Refer to the following document for instructions:
+
+- [RentPath Test Driven Development Project](https://docs.google.com/document/d/1B0uNNNPPwy84kuZYJbB-J6rKBh97r2JJqAtZjMPdWU4/edit?usp=sharing)
 
 # React App Notes
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
