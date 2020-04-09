@@ -55,8 +55,15 @@ export const getPaginationLabel = (state: State): string => {
   const total = getTotal(state)
   const page = getPage(state)
 
-  // YOUR CODE HERE
-  return ''
+  if (total < 1) { return '' }
+
+  if (total <= PROPERTIES_PER_PAGE) {
+    return `${total} Properties`
+  }
+
+  const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
+  const end = begin + PROPERTIES_PER_PAGE - 1
+  return `${begin} - ${end} of ${total} Properties`
 }
 
 /**
@@ -74,8 +81,13 @@ export const getPaginationNextUrl = (state: State): string => {
   const page = getPage(state)
   const pathname = getPathname(state)
 
-  // YOUR CODE HERE
-  return ''
+  const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
+  const end = begin + PROPERTIES_PER_PAGE - 1
+
+  // On last page there is no next url
+  if (end >= total) { return '' }
+
+  return `${pathname}?page=${page + 1}`
 }
 
 /**
@@ -93,6 +105,12 @@ export const getPaginationPreviousUrl = (state: State): string => {
   const page = getPage(state)
   const pathname = getPathname(state)
 
-  // YOUR CODE HERE
-  return ''
+  // If currently on the first page, there is no previous page
+  if (page === 1) { return '' }
+
+  // If currently on page two, then page one will have no "?page=1" parameter
+  if (page === 2) { return pathname }
+
+  // Otherwise subtract one from the page and add "?page=n" to the pathname
+  return `${pathname}?page=${page - 1}`
 }
