@@ -23,8 +23,8 @@ interface State {
    * - Contains an initial '/' followed by the path of the url.
    * - Does not include the search/query string.
    * @example
-   * If the url is "https://www.rent.com/georgia/decatur-apartments?page=5"
-   * then pathname would be "/georgia/decatur-apartments"
+   * If the url is "https://example.com/foo/bar?page=5"
+   * then pathname would be "/foo/bar"
    */
   pathname: string,
 }
@@ -55,15 +55,8 @@ export const getPaginationLabel = (state: State): string => {
   const total = getTotal(state)
   const page = getPage(state)
 
-  if (total < 1) { return '' }
-
-  if (total <= PROPERTIES_PER_PAGE) {
-    return `${total} Properties`
-  }
-
-  const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
-  const end = begin + PROPERTIES_PER_PAGE - 1
-  return `${begin} - ${end} of ${total} Properties`
+  // YOUR CODE HERE
+  return ''
 }
 
 /**
@@ -81,13 +74,8 @@ export const getPaginationNextUrl = (state: State): string => {
   const page = getPage(state)
   const pathname = getPathname(state)
 
-  const begin = (page - 1) * PROPERTIES_PER_PAGE + 1
-  const end = begin + PROPERTIES_PER_PAGE - 1
-
-  // On last page there is no next url
-  if (end >= total) { return '' }
-
-  return `${pathname}?page=${page + 1}`
+  // YOUR CODE HERE
+  return ''
 }
 
 /**
@@ -105,12 +93,6 @@ export const getPaginationPreviousUrl = (state: State): string => {
   const page = getPage(state)
   const pathname = getPathname(state)
 
-  // If currently on the first page, there is no previous page
-  if (page === 1) { return '' }
-
-  // If currently on page two, then page one will have no "?page=1" parameter
-  if (page === 2) { return pathname }
-
-  // Otherwise subtract one from the page and add "?page=n" to the pathname
-  return `${pathname}?page=${page - 1}`
+  // YOUR CODE HERE
+  return ''
 }
